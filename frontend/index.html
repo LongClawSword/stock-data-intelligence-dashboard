@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Intelligence Dashboard</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h2>MarketIQ</h2>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search Symbol..." autocomplete="off"/>
+                <div id="searchResults" class="search-results-dropdown glass" style="display: none;"></div>
+            </div>
+
+            <nav class="company-list">
+                <h3>Watchlist</h3>
+                <ul id="company-ul">
+                    <!-- Javascript will populate companies here -->
+                </ul>
+            </nav>
+            
+            <div class="compare-action">
+                <button id="compareBtn" class="btn primary-btn">+ Compare Mode</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 id="selected-symbol-title">Select a Company</h1>
+                <div class="user-profile">
+                    <span class="avatar">AS</span>
+                </div>
+            </header>
+
+            <!-- Metrics Summary Cards -->
+            <section class="metrics-grid">
+                <div class="metric-card glass">
+                    <span class="label">Current Close</span>
+                    <h3 id="metric-close">--</h3>
+                </div>
+                <div class="metric-card glass">
+                    <span class="label">52W High</span>
+                    <h3 id="metric-high" class="positive">--</h3>
+                </div>
+                <div class="metric-card glass">
+                    <span class="label">52W Low</span>
+                    <h3 id="metric-low" class="negative">--</h3>
+                </div>
+                <div class="metric-card glass">
+                    <span class="label tooltip-trigger" title="30-Day Rolling StdDev of Daily Returns">Volatility Score ℹ</span>
+                    <h3 id="metric-volatility">--</h3>
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="chart-section glass">
+                <div class="chart-header">
+                    <h2>Price Trend (30 Days) & Prediction</h2>
+                    <div class="chart-controls">
+                        <button class="filter-btn active">1M</button>
+                        <button class="filter-btn">3M</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="mainChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals & Overlays -->
+    <div id="compareModal" class="modal">
+        <div class="modal-content glass">
+            <h2>Compare Two Stocks</h2>
+            <div class="form-group">
+                <select id="compareStock1"></select>
+                <span class="vs-text">VS</span>
+                <select id="compareStock2"></select>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelCompare" class="btn secondary-btn">Cancel</button>
+                <button id="runCompare" class="btn primary-btn">Compare</button>
+            </div>
+            <div class="compare-chart-container" style="display:none; margin-top: 20px;">
+                <canvas id="compareChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
